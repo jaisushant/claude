@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preview — Bad Kerning Co.</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a1a1a;
+      font-family: sans-serif;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-label {
+      color: #fff;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.3;
+    }
+
+    .frame-wrap {
+      width: 100%;
+      aspect-ratio: 1280 / 832;
+      overflow: hidden;
+      border-radius: 6px;
+      position: relative;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .frame-wrap:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+    }
+
+    .frame-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1280px;
+      height: 832px;
+      border: none;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      width: 90vw;
+      max-width: 1280px;
+      aspect-ratio: 1280 / 832;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.8);
+    }
+
+    .lightbox-inner iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1280px;
+      height: 832px;
+      border: none;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      opacity: 0.6;
+      line-height: 1;
+    }
+    .lightbox-close:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+  <h1>Bad Kerning Co. — Page Preview</h1>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="close">&times;</span>
+    <div class="lightbox-inner" id="lightbox-inner"></div>
+  </div>
+
+  <script>
+    const sections = [
+      { label: "01 — Hero",       id: "frame-25" },
+      { label: "02 — Misaiming",  id: "frame-27" },
+      { label: "03 — Brief",      id: "frame-28" },
+      { label: "04 — Gap",        id: "frame-29" },
+      { label: "05 — About",      id: "frame-30" },
+      { label: "06 — Tech Stack", id: "tech-stack" },
+    ];
+
+    const grid = document.getElementById("grid");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxInner = document.getElementById("lightbox-inner");
+
+    function scaleIframe(iframe, wrap) {
+      const scale = wrap.offsetWidth / 1280;
+      iframe.style.transform = `scale(${scale})`;
+    }
+
+    sections.forEach(({ label, id }) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const lbl = document.createElement("span");
+      lbl.className = "card-label";
+      lbl.textContent = label;
+
+      const wrap = document.createElement("div");
+      wrap.className = "frame-wrap";
+
+      const iframe = document.createElement("iframe");
+      iframe.src = `index.html#${id}`;
+      iframe.onload = () => scaleIframe(iframe, wrap);
+
+      wrap.appendChild(iframe);
+      wrap.addEventListener("click", () => openLightbox(id));
+      card.appendChild(lbl);
+      card.appendChild(wrap);
+      grid.appendChild(card);
+
+      new ResizeObserver(() => scaleIframe(iframe, wrap)).observe(wrap);
+    });
+
+    function openLightbox(id) {
+      lightboxInner.innerHTML = "";
+      const iframe = document.createElement("iframe");
+      iframe.src = `index.html#${id}`;
+      lightboxInner.appendChild(iframe);
+      lightbox.classList.add("open");
+
+      iframe.onload = () => {
+        const scale = lightboxInner.offsetWidth / 1280;
+        iframe.style.transform = `scale(${scale})`;
+        // scroll to section inside iframe
+        iframe.contentWindow.document.getElementById(id)?.scrollIntoView();
+      };
+    }
+
+    document.getElementById("close").addEventListener("click", () => {
+      lightbox.classList.remove("open");
+      lightboxInner.innerHTML = "";
+    });
+
+    lightbox.addEventListener("click", e => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove("open");
+        lightboxInner.innerHTML = "";
+      }
+    });
+  </script>
+</body>
+</html>
