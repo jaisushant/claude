@@ -50,6 +50,19 @@
       text-decoration: none;
     }
 
+    .nav-tech {
+      position: absolute;
+      top: 50px;
+      left: 1060px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #000;
+      text-transform: lowercase;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
     .nav-logo {
       position: absolute;
       top: 40px;
@@ -162,6 +175,71 @@
       text-align: center;
     }
 
+    /* ── Tech Stack ── */
+    #tech-stack {
+      background-color: #fbfdee;
+    }
+
+    .tech-grid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      grid-template-columns: repeat(3, 280px);
+      gap: 48px 80px;
+    }
+
+    .tech-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tech-label {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      color: #160016;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.5;
+    }
+
+    .tech-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 32px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      line-height: 1.1;
+    }
+
+    .tech-desc {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #160016;
+      line-height: 1.5;
+      opacity: 0.7;
+    }
+
+    .tech-stack-headline {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 60px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      white-space: nowrap;
+      line-height: normal;
+    }
+
     .frame30-email {
       position: absolute;
       top: 590px;
@@ -184,6 +262,7 @@
 
     <!-- Frame 25: Hero -->
     <section class="section" id="frame-25">
+      <a class="nav-tech" href="#tech-stack">tech stack</a>
       <a class="nav-contact" href="#">contact</a>
       <span class="nav-logo">bad kerning co.</span>
 
@@ -219,6 +298,43 @@
       <div class="center-block">
         <h2 class="section-headline section-headline--w709">We find the gap between where you are and where you need to be.</h2>
         <p class="section-body section-body--w527">We understand the actual problem and then we design the solution to it.</p>
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section" id="tech-stack">
+      <h2 class="tech-stack-headline">how we build</h2>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <span class="tech-label">design</span>
+          <span class="tech-name">Figma</span>
+          <span class="tech-desc">Design, prototyping, and handoff — all in one place.</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">typography</span>
+          <span class="tech-name">Fraunces</span>
+          <span class="tech-desc">Variable optical-size serif for headlines with character.</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">typography</span>
+          <span class="tech-name">Epilogue</span>
+          <span class="tech-desc">Clean geometric sans-serif for body and UI text.</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">markup</span>
+          <span class="tech-name">HTML5</span>
+          <span class="tech-desc">Semantic, accessible structure without the noise.</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">style</span>
+          <span class="tech-name">CSS3</span>
+          <span class="tech-desc">Custom properties, grid, and no framework overhead.</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">fonts</span>
+          <span class="tech-name">Google Fonts</span>
+          <span class="tech-desc">Variable font delivery optimised for performance.</span>
+        </div>
       </div>
     </section>
 
