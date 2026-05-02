@@ -4,23 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Preview — Bad Kerning Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Epilogue:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: #1a1a1a;
-      font-family: sans-serif;
+      font-family: 'Epilogue', sans-serif;
       padding: 40px;
     }
 
-    h1 {
+    header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    header h1 {
       color: #fff;
-      font-size: 13px;
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 20px;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      letter-spacing: -0.04em;
+    }
+
+    header span {
+      color: #fff;
+      font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 32px;
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
     .grid {
@@ -29,22 +48,18 @@
       gap: 24px;
     }
 
-    .card {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .card { display: flex; flex-direction: column; gap: 10px; }
 
     .card-label {
       color: #fff;
       font-size: 11px;
-      font-weight: 400;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       opacity: 0.3;
     }
 
-    .frame-wrap {
+    /* Each "screen" is a scaled-down 1280×832 canvas */
+    .screen {
       width: 100%;
       aspect-ratio: 1280 / 832;
       overflow: hidden;
@@ -54,21 +69,184 @@
       cursor: pointer;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-
-    .frame-wrap:hover {
+    .screen:hover {
       transform: scale(1.02);
       box-shadow: 0 8px 40px rgba(0,0,0,0.7);
     }
 
-    .frame-wrap iframe {
+    /* The inner canvas is always 1280×832, scaled via JS */
+    .canvas {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 1280px;
       height: 832px;
-      border: none;
+      background: #fbfdee;
       transform-origin: top left;
-      pointer-events: none;
+    }
+
+    /* ── Shared design tokens ── */
+    .canvas { color: #160016; }
+
+    .nav-logo {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #160016;
+      text-transform: lowercase;
+      letter-spacing: -1.6px;
+      white-space: nowrap;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+    }
+
+    .nav-link {
+      position: absolute;
+      top: 50px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #000;
+      text-transform: lowercase;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero-headline {
+      position: absolute;
+      top: 598px; left: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 60px;
+      color: #000;
+      text-transform: lowercase;
+      white-space: nowrap;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+    }
+    .hero-body {
+      position: absolute;
+      top: 692px; left: 0;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #160016;
+      line-height: 1.5;
+      width: 422px;
+    }
+
+    /* Center block */
+    .center-block {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 38px;
+    }
+    .center-block--left { align-items: flex-start; }
+
+    .section-headline {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 60px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      line-height: normal;
+    }
+    .section-headline--w466 { width: 466px; }
+    .section-headline--w709 { width: 709px; }
+
+    .section-body {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #160016;
+      line-height: 1.5;
+    }
+    .section-body--center { text-align: center; }
+    .section-body--w527 { width: 527px; }
+
+    /* Brief tagline */
+    .frame28-tagline {
+      position: absolute;
+      top: 590px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 40px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      white-space: nowrap;
+    }
+
+    /* Contact email */
+    .frame30-email {
+      position: absolute;
+      top: 590px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 40px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    /* Tech Stack */
+    .tech-stack-headline {
+      position: absolute;
+      top: 80px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 60px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      white-space: nowrap;
+    }
+    .tech-grid {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -46%);
+      display: grid;
+      grid-template-columns: repeat(3, 280px);
+      gap: 48px 80px;
+    }
+    .tech-item { display: flex; flex-direction: column; gap: 10px; }
+    .tech-label {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      color: #160016;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.5;
+    }
+    .tech-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 32px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      line-height: 1.1;
+    }
+    .tech-desc {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #160016;
+      line-height: 1.5;
+      opacity: 0.7;
     }
 
     /* Lightbox */
@@ -76,125 +254,199 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0,0,0,0.88);
       z-index: 100;
       align-items: center;
       justify-content: center;
     }
     .lightbox.open { display: flex; }
-
-    .lightbox-inner {
+    .lightbox-screen {
       width: 90vw;
       max-width: 1280px;
       aspect-ratio: 1280 / 832;
-      position: relative;
-      border-radius: 8px;
       overflow: hidden;
+      border-radius: 8px;
+      position: relative;
       box-shadow: 0 12px 60px rgba(0,0,0,0.8);
     }
-
-    .lightbox-inner iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 1280px;
-      height: 832px;
-      border: none;
-      transform-origin: top left;
-      pointer-events: none;
-    }
-
+    .lightbox-screen .canvas { transform-origin: top left; }
     .lightbox-close {
       position: fixed;
-      top: 24px;
-      right: 32px;
+      top: 24px; right: 32px;
       color: #fff;
-      font-size: 28px;
+      font-size: 32px;
       cursor: pointer;
-      opacity: 0.6;
+      opacity: 0.5;
       line-height: 1;
+      user-select: none;
     }
     .lightbox-close:hover { opacity: 1; }
   </style>
 </head>
 <body>
-  <h1>Bad Kerning Co. — Page Preview</h1>
 
-  <div class="grid" id="grid"></div>
+<header>
+  <h1>bad kerning co.</h1>
+  <span>Page Preview · 6 sections</span>
+</header>
 
-  <div class="lightbox" id="lightbox">
-    <span class="lightbox-close" id="close">&times;</span>
-    <div class="lightbox-inner" id="lightbox-inner"></div>
+<div class="grid" id="grid">
+
+  <!-- 01 Hero -->
+  <div class="card">
+    <span class="card-label">01 — Hero</span>
+    <div class="screen" data-section="0">
+      <div class="canvas" id="c0">
+        <span class="nav-logo">bad kerning co.</span>
+        <a class="nav-link" style="left:1060px">tech stack</a>
+        <a class="nav-link" style="left:1169px">contact</a>
+        <h1 class="hero-headline">good design is nice</h1>
+        <div class="hero-body">
+          <p>Most teams invest in design. They hire well,</p>
+          <p>they ship something beautiful.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script>
-    const sections = [
-      { label: "01 — Hero",       id: "frame-25" },
-      { label: "02 — Misaiming",  id: "frame-27" },
-      { label: "03 — Brief",      id: "frame-28" },
-      { label: "04 — Gap",        id: "frame-29" },
-      { label: "05 — About",      id: "frame-30" },
-      { label: "06 — Tech Stack", id: "tech-stack" },
-    ];
+  <!-- 02 Misaiming -->
+  <div class="card">
+    <span class="card-label">02 — Misaiming</span>
+    <div class="screen" data-section="1">
+      <div class="canvas" id="c1">
+        <div class="center-block">
+          <h2 class="section-headline section-headline--w466">You're not failing. You're misaiming.</h2>
+          <div class="section-body section-body--center">
+            <p>You shipped on time and missed anyway.</p>
+            <p>Not because the work was bad. Because nobody stopped to ask the right question first.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    const grid = document.getElementById("grid");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxInner = document.getElementById("lightbox-inner");
+  <!-- 03 Brief -->
+  <div class="card">
+    <span class="card-label">03 — Brief</span>
+    <div class="screen" data-section="2">
+      <div class="canvas" id="c2">
+        <div class="center-block">
+          <h2 class="section-headline section-headline--w709">The brief is where good work goes to die.</h2>
+          <p class="section-body">Most briefs are solutions dressed up as problems. They tell you what to build, not what to fix. We don't start there.</p>
+        </div>
+        <p class="frame28-tagline">we don't take briefs. we fix them.</p>
+      </div>
+    </div>
+  </div>
 
-    function scaleIframe(iframe, wrap) {
-      const scale = wrap.offsetWidth / 1280;
-      iframe.style.transform = `scale(${scale})`;
-    }
+  <!-- 04 Gap -->
+  <div class="card">
+    <span class="card-label">04 — Gap</span>
+    <div class="screen" data-section="3">
+      <div class="canvas" id="c3">
+        <div class="center-block">
+          <h2 class="section-headline section-headline--w709">We find the gap between where you are and where you need to be.</h2>
+          <p class="section-body section-body--w527">We understand the actual problem and then we design the solution to it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    sections.forEach(({ label, id }) => {
-      const card = document.createElement("div");
-      card.className = "card";
+  <!-- 05 About -->
+  <div class="card">
+    <span class="card-label">05 — About</span>
+    <div class="screen" data-section="4">
+      <div class="canvas" id="c4">
+        <div class="center-block">
+          <h2 class="section-headline section-headline--w709">We're small on purpose.</h2>
+          <p class="section-body">Every engagement starts with a conversation, not a proposal. We tell<br>you when you're pointed at the wrong thing, even when that's not what<br>you want to hear.</p>
+        </div>
+        <a class="frame30-email" href="#">hello@badkerning.co</a>
+      </div>
+    </div>
+  </div>
 
-      const lbl = document.createElement("span");
-      lbl.className = "card-label";
-      lbl.textContent = label;
+  <!-- 06 Tech Stack -->
+  <div class="card">
+    <span class="card-label">06 — Tech Stack</span>
+    <div class="screen" data-section="5">
+      <div class="canvas" id="c5">
+        <h2 class="tech-stack-headline">how we build</h2>
+        <div class="tech-grid">
+          <div class="tech-item">
+            <span class="tech-label">design</span>
+            <span class="tech-name">Figma</span>
+            <span class="tech-desc">Design, prototyping, and handoff — all in one place.</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-label">typography</span>
+            <span class="tech-name">Fraunces</span>
+            <span class="tech-desc">Variable optical-size serif for headlines with character.</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-label">typography</span>
+            <span class="tech-name">Epilogue</span>
+            <span class="tech-desc">Clean geometric sans-serif for body and UI text.</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-label">markup</span>
+            <span class="tech-name">HTML5</span>
+            <span class="tech-desc">Semantic, accessible structure without the noise.</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-label">style</span>
+            <span class="tech-name">CSS3</span>
+            <span class="tech-desc">Custom properties, grid, and no framework overhead.</span>
+          </div>
+          <div class="tech-item">
+            <span class="tech-label">fonts</span>
+            <span class="tech-name">Google Fonts</span>
+            <span class="tech-desc">Variable font delivery optimised for performance.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      const wrap = document.createElement("div");
-      wrap.className = "frame-wrap";
+</div>
 
-      const iframe = document.createElement("iframe");
-      iframe.src = `index.html#${id}`;
-      iframe.onload = () => scaleIframe(iframe, wrap);
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="close">&times;</span>
+  <div class="lightbox-screen" id="lightbox-screen"></div>
+</div>
 
-      wrap.appendChild(iframe);
-      wrap.addEventListener("click", () => openLightbox(id));
-      card.appendChild(lbl);
-      card.appendChild(wrap);
-      grid.appendChild(card);
+<script>
+  function scaleCanvas(canvas, container) {
+    const scale = container.offsetWidth / 1280;
+    canvas.style.transform = `scale(${scale})`;
+  }
 
-      new ResizeObserver(() => scaleIframe(iframe, wrap)).observe(wrap);
+  const screens = document.querySelectorAll('.screen');
+  const ro = new ResizeObserver(() => {
+    screens.forEach(s => scaleCanvas(s.querySelector('.canvas'), s));
+  });
+  screens.forEach(s => {
+    ro.observe(s);
+    scaleCanvas(s.querySelector('.canvas'), s);
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lbScreen = document.getElementById('lightbox-screen');
+
+  screens.forEach(screen => {
+    screen.addEventListener('click', () => {
+      const clone = screen.querySelector('.canvas').cloneNode(true);
+      lbScreen.innerHTML = '';
+      lbScreen.appendChild(clone);
+      lightbox.classList.add('open');
+      scaleCanvas(clone, lbScreen);
     });
+  });
 
-    function openLightbox(id) {
-      lightboxInner.innerHTML = "";
-      const iframe = document.createElement("iframe");
-      iframe.src = `index.html#${id}`;
-      lightboxInner.appendChild(iframe);
-      lightbox.classList.add("open");
-
-      iframe.onload = () => {
-        const scale = lightboxInner.offsetWidth / 1280;
-        iframe.style.transform = `scale(${scale})`;
-        // scroll to section inside iframe
-        iframe.contentWindow.document.getElementById(id)?.scrollIntoView();
-      };
-    }
-
-    document.getElementById("close").addEventListener("click", () => {
-      lightbox.classList.remove("open");
-      lightboxInner.innerHTML = "";
-    });
-
-    lightbox.addEventListener("click", e => {
-      if (e.target === lightbox) {
-        lightbox.classList.remove("open");
-        lightboxInner.innerHTML = "";
-      }
-    });
-  </script>
+  document.getElementById('close').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+</script>
 </body>
 </html>
