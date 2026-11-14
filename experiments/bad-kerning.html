@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bad Kerning Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Epilogue:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #fbfdee;
+      color: #160016;
+    }
+
+    .page {
+      width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* ── Section base ── */
+    .section {
+      position: relative;
+      width: 1280px;
+      height: 832px;
+      overflow: hidden;
+    }
+
+    /* ── Frame 25: Hero ── */
+    #frame-25 {
+      background-color: #fbfdee;
+    }
+
+    .nav-contact {
+      position: absolute;
+      top: 50px;
+      left: 1169px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #000;
+      text-transform: lowercase;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #160016;
+      text-transform: lowercase;
+      letter-spacing: -1.6px;
+      white-space: nowrap;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+    }
+
+    .hero-headline {
+      position: absolute;
+      top: 598px;
+      left: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 60px;
+      color: #000;
+      text-transform: lowercase;
+      white-space: nowrap;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      line-height: normal;
+    }
+
+    .hero-body {
+      position: absolute;
+      top: 692px;
+      left: 0;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #160016;
+      line-height: 1.5;
+      width: 422px;
+    }
+
+    /* ── Frame 27: Misaiming ── */
+    #frame-27 {
+      background-color: #fbfdee;
+    }
+
+    .center-block {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 38px;
+    }
+
+    .center-block--left {
+      align-items: flex-start;
+    }
+
+    .section-headline {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 60px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      line-height: normal;
+    }
+
+    .section-headline--w466 { width: 466px; }
+    .section-headline--w709 { width: 709px; }
+
+    .section-body {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #160016;
+      line-height: 1.5;
+    }
+
+    .section-body--center { text-align: center; }
+    .section-body--w527 { width: 527px; }
+
+    /* ── Frame 28: Brief ── */
+    #frame-28 {
+      background-color: #fbfdee;
+      text-align: center;
+    }
+
+    .frame28-tagline {
+      position: absolute;
+      top: 590px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 40px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      white-space: nowrap;
+      line-height: normal;
+    }
+
+    /* ── Frame 30: Contact ── */
+    #frame-30 {
+      background-color: #fbfdee;
+      text-align: center;
+    }
+
+    .frame30-email {
+      position: absolute;
+      top: 590px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 40px;
+      color: #000;
+      text-transform: lowercase;
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      white-space: nowrap;
+      line-height: normal;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Frame 25: Hero -->
+    <section class="section" id="frame-25">
+      <a class="nav-contact" href="#">contact</a>
+      <span class="nav-logo">bad kerning co.</span>
+
+      <h1 class="hero-headline">good design is nice</h1>
+      <div class="hero-body">
+        <p>Most teams invest in design. They hire well,</p>
+        <p>they ship something beautiful.</p>
+      </div>
+    </section>
+
+    <!-- Frame 27: Misaiming -->
+    <section class="section" id="frame-27">
+      <div class="center-block">
+        <h2 class="section-headline section-headline--w466">You're not failing. You're misaiming.</h2>
+        <div class="section-body section-body--center">
+          <p>You shipped on time and missed anyway.</p>
+          <p>Not because the work was bad. Because nobody stopped to ask the right question first.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Frame 28: Brief -->
+    <section class="section" id="frame-28">
+      <div class="center-block">
+        <h2 class="section-headline section-headline--w709">The brief is where good work goes to die.</h2>
+        <p class="section-body">Most briefs are solutions dressed up as problems. They tell you what to build, not what to fix. We don't start there.</p>
+      </div>
+      <p class="frame28-tagline">we don't take briefs. we fix them.</p>
+    </section>
+
+    <!-- Frame 29: Gap -->
+    <section class="section" id="frame-29">
+      <div class="center-block">
+        <h2 class="section-headline section-headline--w709">We find the gap between where you are and where you need to be.</h2>
+        <p class="section-body section-body--w527">We understand the actual problem and then we design the solution to it.</p>
+      </div>
+    </section>
+
+    <!-- Frame 30: Small on purpose / Contact -->
+    <section class="section" id="frame-30">
+      <div class="center-block">
+        <h2 class="section-headline section-headline--w709">We're small on purpose.</h2>
+        <p class="section-body">Every engagement starts with a conversation, not a proposal. We tell<br>you when you're pointed at the wrong thing, even when that's not what<br>you want to hear.</p>
+      </div>
+      <a class="frame30-email" href="mailto:hello@badkerning.co">hello@badkerning.co</a>
+    </section>
+
+  </div>
+</body>
+</html>
