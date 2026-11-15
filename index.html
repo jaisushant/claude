@@ -620,6 +620,28 @@ html.layout-mobile.view-case .m-top{display:none!important}
 html.layout-mobile.view-case .sleeve{display:none!important}
 .m-casetop{display:none}
 </style>
+<script>
+/* Images that are not supplied yet must not leave a hole the size of the
+   photograph. Collapse the figure, and the row once nothing is left in it,
+   so the section reflows to its text instead of framing six blank panels.
+   Defined here because inline onerror can fire while the body is parsing. */
+function imgGone(img){
+  var fig = img.closest("figure") || img.parentNode;
+  if (!fig) return;
+  fig.style.display = "none";
+  var row = fig.parentNode;
+  while (row && row.children.length){
+    var alive = false;
+    for (var i = 0; i < row.children.length; i++){
+      if (row.children[i].style.display !== "none"){ alive = true; break; }
+    }
+    if (alive) break;
+    row.style.display = "none";
+    row = row.parentNode;
+    if (!row || !row.classList || (!row.classList.contains("photos") && !row.classList.contains("photos-sm"))) break;
+  }
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">skip to content</a>
@@ -784,10 +806,10 @@ html.layout-mobile.view-case .sleeve{display:none!important}
             <a class="link" href="https://www.instagram.com/evil.onigiri/" target="_blank" rel="noopener">evil.onigiri on instagram ↗</a>
           </div>
           <div class="photos" style="display:flex;gap:16px">
-            <figure class="shot filled" style="--ar:9/16"><img src="images/onigiri-portrait.jpg" onerror="this.remove()" alt="Sushant in a black tee holding an onigirazu, with red devil horns drawn on" loading="eager" decoding="async"></figure>
+            <figure class="shot filled" style="--ar:9/16"><img src="images/onigiri-portrait.jpg" onerror="imgGone(this)" alt="Sushant in a black tee holding an onigirazu, with red devil horns drawn on" loading="eager" decoding="async"></figure>
             <div class="photos-sm" style="display:flex;flex-direction:column;gap:16px">
-              <figure class="shot filled" style="--ar:1/1"><img src="images/onigiri-friends.jpg" onerror="this.remove()" alt="Three friends at Evil Onigiri reaching for an onigirazu" loading="eager" decoding="async"></figure>
-              <figure class="shot filled" style="--ar:1/1"><img src="images/onigiri-wordmark.jpg" onerror="this.remove()" alt="Evil Onigiri wordmark in white blackletter on black" loading="eager" decoding="async"></figure>
+              <figure class="shot filled" style="--ar:1/1"><img src="images/onigiri-friends.jpg" onerror="imgGone(this)" alt="Three friends at Evil Onigiri reaching for an onigirazu" loading="eager" decoding="async"></figure>
+              <figure class="shot filled" style="--ar:1/1"><img src="images/onigiri-wordmark.jpg" onerror="imgGone(this)" alt="Evil Onigiri wordmark in white blackletter on black" loading="eager" decoding="async"></figure>
             </div>
           </div>
         </section>
@@ -808,9 +830,9 @@ html.layout-mobile.view-case .sleeve{display:none!important}
             </div>
           </div>
           <div class="photos" style="display:flex;gap:16px">
-            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-mushrooms.jpg" onerror="this.remove()" alt="Bowl of mushrooms in chilli broth" loading="eager" decoding="async"></figure>
-            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-onigirazu.jpg" onerror="this.remove()" alt="Hand holding a cut onigirazu over a plate" loading="eager" decoding="async"></figure>
-            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-counter.jpg" onerror="this.remove()" alt="Dumplings in broth in a pale green bowl" loading="eager" decoding="async"></figure>
+            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-mushrooms.jpg" onerror="imgGone(this)" alt="Bowl of mushrooms in chilli broth" loading="eager" decoding="async"></figure>
+            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-onigirazu.jpg" onerror="imgGone(this)" alt="Hand holding a cut onigirazu over a plate" loading="eager" decoding="async"></figure>
+            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-counter.jpg" onerror="imgGone(this)" alt="Dumplings in broth in a pale green bowl" loading="eager" decoding="async"></figure>
           </div>
         </section>
 
