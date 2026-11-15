@@ -1262,20 +1262,16 @@ html.layout-mobile.view-case .sleeve{display:none!important}
      never fires load on the iframe, so after 3s we fall back to a panel that
      links out to the album rather than leaving a broken frame on the page. */
   (function(){
-    // A real cross-origin embed makes contentWindow.location unreadable; a
-    // blocked one is left at about:blank, which reads fine. Chrome fires load
-    // either way, so the read is the only honest signal.
-    function embedDead(fr){
-      try { return !fr.contentWindow || fr.contentWindow.location.href === "about:blank"; }
-      catch (e) { return false; }
-    }
+    // The live site is top-level; the Claude artifact preview renders it inside
+    // a frame whose policy forbids third-party frames. Probing the embed is
+    // unreliable (a blocked frame still fires load), so go by the one fact that
+    // is always true: if we are framed, drop the iframe and show the link panel.
+    var framed; try { framed = window.top !== window.self; } catch (e) { framed = true; }
+    if (!framed) return;
     [["[data-spotify]", "[data-slot]"], ["[data-spotify-m]", ".m-bar"]].forEach(function(pair){
       var fr = $(pair[0]), host = $(pair[1]);
-      if (!fr || !host) return;
-      var check = function(){ host.classList.toggle("no-embed", embedDead(fr)); };
-      fr.addEventListener("load", function(){ setTimeout(check, 300); });
-      setTimeout(check, 1500);
-      setTimeout(check, 4000);
+      if (host) host.classList.add("no-embed");
+      if (fr) fr.remove();
     });
   })();
 
