@@ -85,26 +85,8 @@ button.link{text-align:left}
 .now-label{display:flex;align-items:center;gap:10px}
 .actions{display:flex;align-items:center;gap:28px}
 .player-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.player{position:relative;display:flex;align-items:center;gap:16px;background:var(--panel);color:var(--on-ink);padding:16px 20px 18px 16px;width:100%;text-align:left}
-.player .play{flex:none;width:40px;height:40px;border-radius:50%;background:var(--red);display:grid;place-items:center;transition:transform var(--t-fast) var(--ease)}
-.player:hover .play{transform:scale(1.05)}
-.player .play svg{display:block;margin-left:2px}
-.play .i-pause,.m-bar .i-pause{display:none!important}
-.playing .i-pause{display:block!important}
-.playing .i-play{display:none!important}
-.playing .i-pause{margin-left:0!important}
-.player .meta{flex:1;min-width:0}
-.player .meta .b-strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.player .time{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--on-ink-muted);font-variant-numeric:tabular-nums}
-.eq{display:flex;align-items:flex-end;gap:3px;height:18px;flex:none}
-.eq i{display:block;width:3px;background:var(--on-ink);height:8px;transform-origin:bottom}
-.playing .eq i{animation:bob 900ms var(--ease) infinite alternate}
-.playing .eq i:nth-child(2){animation-duration:620ms}
-.playing .eq i:nth-child(3){animation-duration:1120ms}
-.playing .eq i:nth-child(4){animation-duration:780ms}
-@keyframes bob{from{height:5px}to{height:18px}}
-.ptrack{position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--on-ink-line)}
-.pfill{position:absolute;left:0;bottom:0;height:2px;background:var(--red);width:11%}
+.spotify{display:block;width:100%;height:152px;border:0;background:var(--panel)}
+.spotify-m{display:block;flex:1;min-width:0;height:80px;border:0;background:var(--panel)}
 .sleeve-foot{display:flex;align-items:center;justify-content:space-between}
 .sleeve-links{display:flex;gap:22px}
 
@@ -254,8 +236,7 @@ html.layout-mobile .card .shots .shot{flex:1;width:auto;height:auto;aspect-ratio
 html.layout-mobile .photos-sm{flex-direction:row;height:auto}
 html.layout-mobile .photos-sm .shot{flex:1;width:auto;aspect-ratio:1/1}
 html.layout-mobile .pagefoot{display:flex;flex-direction:column;gap:16px;padding:28px 24px 120px}
-html.layout-mobile .m-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;align-items:center;gap:14px;background:var(--panel);color:var(--on-ink);padding:13px 16px 15px}
-html.layout-mobile .m-bar .meta{flex:1;min-width:0}
+html.layout-mobile .m-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;align-items:center;gap:12px;background:var(--panel);color:var(--on-ink);padding:8px 12px 10px}
 html.layout-mobile .m-sheet{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--bg);flex-direction:column;gap:20px;align-items:center;padding:12px 24px 28px;transform:translateY(102%);transition:transform var(--t-slow) var(--ease);max-height:86%;overflow:auto}
 html.layout-mobile .m-sheet.open{transform:none}
 html.layout-mobile .drawer{left:0;width:100%;height:100%;border-right:0;transform:translateY(16px);overflow:auto;z-index:32;padding-bottom:84px}
@@ -690,16 +671,6 @@ html.layout-mobile.view-case .sleeve{display:none!important}
         src="https://open.spotify.com/embed/album/6dCSTfBpzN5IWbjTKNfm74?utm_source=generator&theme=0"
         width="100%" height="152" frameborder="0" loading="lazy"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-      <button class="player" data-player aria-pressed="false">
-        <span class="play"><svg class="i-play" width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M0 0l13 7L0 14z" fill="#0D0D0D"/></svg><svg class="i-pause" width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path d="M0 0h4v14H0zM8 0h4v14H8z" fill="#0D0D0D"/></svg></span>
-        <span class="meta">
-          <span class="b-strong" style="display:block">songs for the deaf</span>
-          <span class="l-s" style="color:var(--on-ink-muted)" data-band>queens of the stone age</span>
-        </span>
-        <span class="time" data-time>0:42 / 6:18</span>
-        <span class="eq" aria-hidden="true"><i style="height:10px"></i><i style="height:18px"></i><i style="height:7px"></i><i style="height:14px"></i></span>
-        <span class="ptrack"></span><span class="pfill" data-fill></span>
-      </button>
     </div>
 
     <div class="sleeve-foot">
@@ -958,14 +929,11 @@ html.layout-mobile.view-case .sleeve{display:none!important}
 
   <!-- mobile player bar + sheet -->
   <div class="m-bar">
-    <button class="play" data-player style="width:34px;height:34px;border-radius:50%;background:var(--red);display:grid;place-items:center;flex:none" aria-label="Play">
-      <svg class="i-play" width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M0 0l11 6L0 12z" fill="#0D0D0D"/></svg><svg class="i-pause" width="10" height="12" viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0h3.5v12H0zM6.5 0h3.5v12H6.5z" fill="#0D0D0D"/></svg>
-    </button>
-    <span class="meta">
-      <span class="b-strong" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">songs for the deaf</span>
-      <span class="l-s" style="color:var(--on-ink-muted)">queens of the stone age</span>
-    </span>
-    <button class="l-m" data-sheet style="border:1px solid var(--on-ink-line);padding:9px 12px;display:flex;gap:8px;align-items:center">index <span>↑</span></button>
+    <iframe class="spotify-m" title="Queens of the Stone Age — Songs for the Deaf on Spotify"
+      src="https://open.spotify.com/embed/album/6dCSTfBpzN5IWbjTKNfm74?utm_source=generator&theme=0"
+      width="100%" height="80" frameborder="0" loading="lazy"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <button class="l-m" data-sheet style="border:1px solid var(--on-ink-line);padding:9px 12px;display:flex;gap:8px;align-items:center;flex:none">index <span>↑</span></button>
   </div>
 
   <div class="m-sheet" data-m-sheet aria-hidden="true">
@@ -1267,43 +1235,8 @@ html.layout-mobile.view-case .sleeve{display:none!important}
   });
   $("[data-sheet-close]").addEventListener("click", closeAll);
 
-  /* ---------- player ---------- */
-  var playing = false, t = 42, DUR = 378, timer = null;
-  var fill = $("[data-fill]"), timeEl = $("[data-time]");
-  function paint(){
-    var pct = (t / DUR * 100).toFixed(2) + "%";
-    if (fill) fill.style.width = pct;
-    var m = Math.floor(t/60), s = String(Math.floor(t%60)).padStart(2,"0");
-    if (timeEl) timeEl.textContent = m + ":" + s + " / 6:18";
-  }
-  function toggle(){
-    playing = !playing;
-    $$("[data-player]").forEach(function(p){
-      p.classList.toggle("playing", playing);
-      p.setAttribute("aria-pressed", playing ? "true" : "false");
-    });
-    document.body.classList.toggle("playing", playing);
-    if (timer) clearInterval(timer);
-    if (playing && !reduced()){
-      timer = setInterval(function(){ t = (t + 1) % DUR; paint(); }, 1000);
-    }
-  }
-  $$("[data-player]").forEach(function(p){ p.addEventListener("click", toggle); });
-  document.addEventListener("keydown", function(e){
-    if (e.code === "Space" && !e.target.closest("button,a,input")){ e.preventDefault(); toggle(); }
-  });
-  paint();
-
-  /* ---------- spotify ---------- */
-  var sp = $("[data-spotify]");
-  if (sp){
-    var settle = function(){
-      var ok = sp.offsetHeight > 40;
-      root.classList.toggle("spotify-live", ok);
-    };
-    sp.addEventListener("load", function(){ setTimeout(settle, 400); });
-    setTimeout(settle, 2200);
-  }
+  /* ---------- player ----------
+     Playback is Spotify's own embed; the site keeps no transport of its own. */
 
   /* ---------- clock ---------- */
   function tick(){
