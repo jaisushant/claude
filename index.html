@@ -1262,12 +1262,20 @@ html.layout-mobile.view-case .sleeve{display:none!important}
      never fires load on the iframe, so after 3s we fall back to a panel that
      links out to the album rather than leaving a broken frame on the page. */
   (function(){
+    // A real cross-origin embed makes contentWindow.location unreadable; a
+    // blocked one is left at about:blank, which reads fine. Chrome fires load
+    // either way, so the read is the only honest signal.
+    function embedDead(fr){
+      try { return !fr.contentWindow || fr.contentWindow.location.href === "about:blank"; }
+      catch (e) { return false; }
+    }
     [["[data-spotify]", "[data-slot]"], ["[data-spotify-m]", ".m-bar"]].forEach(function(pair){
       var fr = $(pair[0]), host = $(pair[1]);
       if (!fr || !host) return;
-      var ok = false;
-      fr.addEventListener("load", function(){ ok = true; host.classList.remove("no-embed"); });
-      setTimeout(function(){ if (!ok) host.classList.add("no-embed"); }, 3000);
+      var check = function(){ host.classList.toggle("no-embed", embedDead(fr)); };
+      fr.addEventListener("load", function(){ setTimeout(check, 300); });
+      setTimeout(check, 1500);
+      setTimeout(check, 4000);
     });
   })();
 
