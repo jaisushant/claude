@@ -85,8 +85,18 @@ button.link{text-align:left}
 .now-label{display:flex;align-items:center;gap:10px}
 .actions{display:flex;align-items:center;gap:28px}
 .player-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.spotify{display:block;width:100%;height:152px;border:0;background:var(--panel)}
+.player-slot{position:relative;height:152px}
+.player-off{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:4px;background:var(--panel);color:var(--on-ink);padding:16px 20px}
+.player-off .l-s{color:var(--on-ink-muted)}
+.player-off .off-cta{margin-top:10px;color:var(--red)}
+.spotify{position:absolute;inset:0;display:block;width:100%;height:100%;border:0;background:var(--panel)}
+.player-slot.no-embed .spotify{display:none}
 .spotify-m{display:block;flex:1;min-width:0;height:80px;border:0;background:var(--panel)}
+.m-bar.no-embed .spotify-m{display:none}
+.m-bar.no-embed .m-off{display:flex}
+.m-off{display:none;flex:1;min-width:0;flex-direction:column;gap:2px}
+.m-off .b-strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-off .l-s{color:var(--on-ink-muted)}
 .sleeve-foot{display:flex;align-items:center;justify-content:space-between}
 .sleeve-links{display:flex;gap:22px}
 
@@ -667,10 +677,17 @@ html.layout-mobile.view-case .sleeve{display:none!important}
         <span class="l-s muted">now playing</span>
         <a class="link l-s muted" href="https://open.spotify.com/album/6dCSTfBpzN5IWbjTKNfm74" target="_blank" rel="noopener" aria-label="Open the album in Spotify">open in spotify ↗</a>
       </div>
-      <iframe class="spotify" data-spotify title="Queens of the Stone Age — Songs for the Deaf on Spotify"
-        src="https://open.spotify.com/embed/album/6dCSTfBpzN5IWbjTKNfm74?utm_source=generator&theme=0"
-        width="100%" height="152" frameborder="0" loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      <div class="player-slot" data-slot>
+        <a class="player-off" href="https://open.spotify.com/album/6dCSTfBpzN5IWbjTKNfm74" target="_blank" rel="noopener">
+          <span class="b-strong">songs for the deaf</span>
+          <span class="l-s">queens of the stone age</span>
+          <span class="l-s off-cta">play on spotify ↗</span>
+        </a>
+        <iframe class="spotify" data-spotify title="Queens of the Stone Age — Songs for the Deaf on Spotify"
+          src="https://open.spotify.com/embed/album/6dCSTfBpzN5IWbjTKNfm74?utm_source=generator&theme=0"
+          width="100%" height="152" frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      </div>
     </div>
 
     <div class="sleeve-foot">
@@ -929,9 +946,13 @@ html.layout-mobile.view-case .sleeve{display:none!important}
 
   <!-- mobile player bar + sheet -->
   <div class="m-bar">
-    <iframe class="spotify-m" title="Queens of the Stone Age — Songs for the Deaf on Spotify"
+    <a class="m-off" href="https://open.spotify.com/album/6dCSTfBpzN5IWbjTKNfm74" target="_blank" rel="noopener">
+      <span class="b-strong">songs for the deaf</span>
+      <span class="l-s">play on spotify ↗</span>
+    </a>
+    <iframe class="spotify-m" data-spotify-m title="Queens of the Stone Age — Songs for the Deaf on Spotify"
       src="https://open.spotify.com/embed/album/6dCSTfBpzN5IWbjTKNfm74?utm_source=generator&theme=0"
-      width="100%" height="80" frameborder="0" loading="lazy"
+      width="100%" height="80" frameborder="0"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     <button class="l-m" data-sheet style="border:1px solid var(--on-ink-line);padding:9px 12px;display:flex;gap:8px;align-items:center;flex:none">index <span>↑</span></button>
   </div>
@@ -1236,7 +1257,19 @@ html.layout-mobile.view-case .sleeve{display:none!important}
   $("[data-sheet-close]").addEventListener("click", closeAll);
 
   /* ---------- player ----------
-     Playback is Spotify's own embed; the site keeps no transport of its own. */
+     Playback is Spotify's own embed; the site keeps no transport of its own.
+     A sandbox that forbids third-party frames (the Claude artifact preview)
+     never fires load on the iframe, so after 3s we fall back to a panel that
+     links out to the album rather than leaving a broken frame on the page. */
+  (function(){
+    [["[data-spotify]", "[data-slot]"], ["[data-spotify-m]", ".m-bar"]].forEach(function(pair){
+      var fr = $(pair[0]), host = $(pair[1]);
+      if (!fr || !host) return;
+      var ok = false;
+      fr.addEventListener("load", function(){ ok = true; host.classList.remove("no-embed"); });
+      setTimeout(function(){ if (!ok) host.classList.add("no-embed"); }, 3000);
+    });
+  })();
 
   /* ---------- clock ---------- */
   function tick(){
