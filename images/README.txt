@@ -1,13 +1,12 @@
-Six Evil Onigiri photographs are still missing. Drop them in here with
-these exact names and they appear on the site immediately — no code
-change needed. Until then each frame renders as an empty tinted panel
-rather than a broken image.
+Evil Onigiri photographs in use:
 
-  onigiri-portrait.jpg    9:16  — Sushant in a black tee holding an onigirazu
-  onigiri-friends.jpg     1:1   — three friends reaching for an onigirazu
-  onigiri-wordmark.jpg    1:1   — the Evil Onigiri wordmark, white on black
-  onigiri-mushrooms.jpg   3:4   — bowl of mushrooms in chilli broth
-  onigiri-onigirazu.jpg   3:4   — hand holding a cut onigirazu over a plate
-  onigiri-counter.jpg     3:4   — third food/room shot
+  onigiri-sign.jpg      the shopfront sign on St Marks Road   (section 04)
+  onigiri-counter.jpg   red counter with a cook behind it     (section 04)
+  onigiri-room.jpg      dining room toward the glass door     (section 04)
+  onigiri-tables.jpg    tables and rust chairs                (section 05)
+  onigiri-bar.jpg       long view down the room               (section 05)
 
-Roughly 1200px on the long edge is plenty.
+Still missing: food. Section 05 is about the menu and has no plate on it.
+Three dish photographs at roughly 3:4 would finish it - drop them in as
+onigiri-dish-1.jpg, -2.jpg, -3.jpg and ask for the markup, or send them
+over and they can be wired in.
