@@ -1187,7 +1187,12 @@ function imgGone(img){
     for (var i = 0; i < focusUnits.length; i++){
       var el = focusUnits[i], r = el.getBoundingClientRect();
       var centre = (r.left - vb.left) + r.width / 2;
-      var d = Math.min(1, Math.abs(centre - focal) / (vw * 0.9));
+      // Distance from the focal line to the section's nearest edge, so a section
+      // that spans the focal line is fully lit however wide it is. Measuring from
+      // the centre left wide sections stuck at ~55% while being read.
+      var left = r.left - vb.left, right = left + r.width;
+      var gap = focal < left ? left - focal : (focal > right ? focal - right : 0);
+      var d = Math.min(1, gap / (vw * 0.6));
       el.style.opacity = (1 - d * 0.45).toFixed(3);
       el.style.transform = "scale(" + (1 - d * 0.014).toFixed(4) + ")";
       var shots = shotsBySec[i];
