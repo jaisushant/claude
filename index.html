@@ -337,6 +337,12 @@ html.view-case .sleeve{justify-content:flex-start;gap:14px;padding-top:32px}
 .case-hero{padding:104px 0 56px;display:flex;flex-direction:column;gap:22px}
 .case-hero .d-l{max-width:720px}
 .case-hero .b-l{max-width:660px}
+.cs-meta{margin:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.cs-meta>div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.cs-meta dt,.cs-meta dd{margin:0}
+.sleeve-case .chips{display:flex;flex-wrap:wrap;gap:6px}
+.cs-nextline{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;margin-top:4px}
+.cs-nextline:hover .b-m{text-decoration:underline}
 .cs-cover{position:relative;background:var(--panel);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;gap:3.5%;padding:7% 7% 0;aspect-ratio:784/430;margin-bottom:8px}
 .cs-cover .shot{background:#1C2225;flex:1;height:100%;align-self:flex-end}
 .cs-cover.single{padding:7% 7% 0}
@@ -672,9 +678,11 @@ function imgGone(img){
         <span class="l-m red" data-cs-side>side a · track 01</span>
         <h1 class="t-m" data-cs-title>—</h1>
       </div>
-      <div class="rule"></div>
+      <dl class="cs-meta" data-cs-meta></dl>
+      <div class="chips" data-cs-chips></div>
       <span class="l-s muted">in this track</span>
       <nav class="cs-nav" data-cs-nav aria-label="Sections in this case study"></nav>
+      <button class="cs-nextline" data-cs-nextline><span class="l-s muted">next track &#8594;</span><span class="b-m" data-cs-nextname>—</span></button>
     </div>
 
     <div class="sleeve-home">
@@ -748,7 +756,7 @@ function imgGone(img){
         <section class="sec" style="flex-direction:column;gap:36px" data-sec>
           <div class="sec-head">
             <h2 class="d-l">some are digital.</h2>
-            <p class="b-s bodyc" style="width:300px">proof in activation, retention and engagement. three tracks from meesho, each with the number that moved.</p>
+            <p class="b-s bodyc" style="width:300px">proof in activation and engagement. three tracks from meesho, each with the number that moved.</p>
           </div>
           <div class="cards">
             <article class="card" data-anchor="merchant dashboard">
@@ -1362,6 +1370,7 @@ function imgGone(img){
 
   var CASES = [
   {
+    meta:[["organisation","Meesho"],["year","2022"],["role","Senior Product Designer"],["version","V1 of 2"]], chips:["2.9k surveyed","seller tools","0 → 1"],
     side:"side a · track 01", title:"merchant dashboard", client:"meesho '22",
     h1:"helping merchants get clarity on business performance.",
     lede:"A dashboard that shows merchants how their business is doing, in the way they already think about it.",
@@ -1402,15 +1411,14 @@ function imgGone(img){
     ]
   },
   {
+    meta:[["organisation","Meesho"],["year","2022"],["role","Senior Product Designer"],["version","V2"]], chips:["+10% activation","behaviour design","experiments"],
     side:"side a · track 02", title:"merchant incentive", client:"meesho '22",
     h1:"how we improved user activation by 10%.",
     lede:"Merchants who reached 7 catalogs in 14 days were far more likely to activate. Meesho rewarded that milestone with 1,200 ad credits. We redesigned how they got there.",
     cover:{kind:"single", shots:["implAfter"]},
     next:{i:2, label:"bid based shopping"},
     sec:[
-      {no:"01", nm:"overview", cp:"Meesho sellers earned credits for hitting onboarding milestones. Most never came back to claim them — only 37.2% of onboarded merchants reached the 7–14 day milestone at all.", b:[
-        {t:"img", k:"implAfter"}
-      ]},
+      {no:"01", nm:"overview", cp:"Meesho sellers earned credits for hitting onboarding milestones. Most never came back to claim them — only 37.2% of onboarded merchants reached the 7–14 day milestone at all.", b:[]},
       {no:"02", nm:"data insights", ttl:"where merchants stalled.", b:[
         {t:"stats", v:[["~63%","Dropped off after onboarding"],["~35%","Never uploaded a catalog"],["~92%","Of the rest had at least one live, quality catalog"]]},
         {t:"cols", v:[["1–3 catalogs","Where most drop-offs happened","The steepest fall sits in the first three uploads."],["4–7 catalogs","Drop-offs eased","Merchants who got this far mostly kept going."]]},
@@ -1446,6 +1454,7 @@ function imgGone(img){
     ]
   },
   {
+    meta:[["organisation","Meesho"],["year","2023"],["role","Senior Product Designer"],["type","Consumer"]], chips:["+22% ctr","+5% bids placed","3 experiments"],
     side:"side a · track 03", title:"bid based shopping", client:"meesho '23",
     h1:"how we improved click-through by 22%.",
     lede:"A chat-based bidding game where users could win products at deep discounts. Lots of people saw it. Almost nobody played. Three experiments, one funnel stage at a time.",
@@ -1663,6 +1672,10 @@ function imgGone(img){
     $("[data-cs-title]").textContent = c.title;
     $("[data-cs-title-m]").textContent = c.title;
     $("[data-cs-side]").textContent = c.side;
+    $("[data-cs-meta]").innerHTML = (c.meta||[]).map(function(r){ return '<div><dt class="l-s muted">'+esc(r[0])+'</dt><dd class="b-s">'+esc(r[1])+'</dd></div>'; }).join("");
+    $("[data-cs-chips]").innerHTML = (c.chips||[]).map(function(t){ return '<span class="chip">'+esc(t)+'</span>'; }).join("");
+    $("[data-cs-nextname]").textContent = c.next ? c.next.label : "";
+    $("[data-cs-nextline]").setAttribute("data-case-open", c.next ? c.next.i : 0);
 
     var nav = $("[data-cs-nav]");
     nav.innerHTML = c.sec.map(function(s,k){
