@@ -329,7 +329,7 @@ html.view-case .stage{display:none!important}
 html.view-case .casewrap{display:block;margin-left:calc(var(--sleeve) + 1px);padding:0 var(--pad) 140px}
 .sleeve-home{display:contents}
 html.view-case .sleeve-home{display:none}
-.sleeve-case{display:none;flex-direction:column;gap:22px;min-height:0;flex:1}
+.sleeve-case{display:none;flex-direction:column;gap:16px;flex:none}
 html.view-case .sleeve-case{display:flex}
 html.view-case .sleeve{justify-content:flex-start;gap:14px;padding-top:32px}
 
@@ -337,8 +337,9 @@ html.view-case .sleeve{justify-content:flex-start;gap:14px;padding-top:32px}
 .case-hero{padding:104px 0 56px;display:flex;flex-direction:column;gap:22px}
 .case-hero .d-l{max-width:720px}
 .case-hero .b-l{max-width:660px}
+.case-hero h1:focus{outline:none}
 .cs-meta{margin:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
-.cs-meta>div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.cs-meta>div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:5px 0;border-bottom:1px solid var(--line)}
 .cs-meta dt,.cs-meta dd{margin:0}
 .sleeve-case .chips{display:flex;flex-wrap:wrap;gap:6px}
 .cs-nextline{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;margin-top:4px}
@@ -581,9 +582,9 @@ html.motion-off .cs-models .fade,html.motion-off .cs-models .zone{opacity:1}
 .cs-back{display:inline-flex;align-items:center;gap:8px}
 .cs-back .arw{display:inline-block;transition:transform var(--dur-2) var(--e-out-quart)}
 @media (hover:hover){ .cs-back:hover .arw{transform:translateX(-4px)} }
-.cs-nav{display:flex;flex-direction:column;overflow:auto;scrollbar-width:none;min-height:0;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent)}
+.cs-nav{display:flex;flex-direction:column;overflow:visible;flex:none;-webkit-mask-image:none!important;mask-image:none!important;scrollbar-width:none;min-height:0;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent)}
 .cs-nav::-webkit-scrollbar{display:none}
-.cs-nav button{display:flex;gap:14px;align-items:baseline;padding:5px 0;width:100%;text-align:left;color:var(--muted);transition:color var(--dur-1) ease,padding-left var(--dur-1) ease}
+.cs-nav button{display:flex;gap:14px;align-items:baseline;padding:3px 0;width:100%;text-align:left;color:var(--muted);transition:color var(--dur-1) ease,padding-left var(--dur-1) ease}
 .cs-nav button .no{font-family:"JetBrains Mono",monospace;font-size:11px;width:22px;flex:none;color:var(--muted);transition:color var(--dur-1) ease}
 @media (hover:hover){ .cs-nav button:hover{color:var(--ink);padding-left:6px} }
 .cs-nav button.on{color:var(--ink)}
