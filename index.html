@@ -120,6 +120,10 @@ button.link{text-align:left}
 .photos-sm{flex-direction:column}
 .photos .shot{height:100%;width:auto;min-height:0;aspect-ratio:var(--ar)}
 .photos-sm .shot{flex:1;height:auto;width:auto;aspect-ratio:1/1;align-self:flex-start}
+/* Size the stacked column from its height (Figma: two 328 squares + 16 gap = 328x672),
+   otherwise it stretches wider than the squares and leaves a gap after the collage. */
+.photos-sm{flex:none;height:100%;aspect-ratio:328/672}
+.photos-sm .shot{flex:none;width:100%;height:auto;aspect-ratio:1/1}
 .sec+.sec{border-left:1px solid var(--line)}
 .sec-head{display:flex;gap:64px;align-items:flex-end}
 .col{display:flex;flex-direction:column;justify-content:space-between;height:100%}
@@ -244,7 +248,7 @@ html.layout-mobile .cover-link{flex:none}
 html.layout-mobile .card .cover .shot,html.layout-mobile .photos .shot{flex:none;width:100%;height:auto;max-width:none;aspect-ratio:var(--ar)}
 html.layout-mobile .card .shots{flex:none;height:auto;width:100%}
 html.layout-mobile .card .shots .shot{flex:1;width:auto;height:auto;aspect-ratio:var(--ar)}
-html.layout-mobile .photos-sm{flex-direction:row;height:auto}
+html.layout-mobile .photos-sm{flex-direction:row;height:auto;aspect-ratio:auto;width:auto}
 html.layout-mobile .photos-sm .shot{flex:1;width:auto;aspect-ratio:1/1}
 html.layout-mobile .og-tall{width:100%;flex:none}
 html.layout-mobile .pagefoot{display:flex;flex-direction:column;gap:16px;padding:28px 24px 120px}
