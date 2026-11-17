@@ -212,8 +212,6 @@ html.layout-mobile .headline{max-width:none}
 html.layout-mobile .d-xl{font-size:38px;line-height:40px}
 html.layout-mobile .d-l{font-size:38px;line-height:40px}
 html.layout-mobile .t-m{font-size:24px;line-height:28px}
-html.layout-mobile .actions{flex-direction:column;align-items:stretch;gap:20px}
-html.layout-mobile .actions .link{align-self:flex-start}
 html.layout-mobile .stage{position:static;height:auto;padding:0;display:block}
 html.layout-mobile .viewport{overflow:visible;height:auto}
 html.layout-mobile .rail{flex-direction:column;height:auto;transform:none!important}
@@ -697,12 +695,10 @@ function imgGone(img){
       <div class="rule"></div>
       <div class="now-label"><i class="dot"></i><span class="l-ms">now</span></div>
       <p class="b-m bodyc">consulting on product design and running evil onigiri on st. marks road, bangalore.</p>
-      <button class="link" data-about aria-expanded="false" aria-controls="about-drawer">more about me +</button>
-    </div>
-
-    <div class="actions" data-enter style="animation-delay:360ms">
-      <button class="btn" data-goto="0">see the work <span class="arw">→</span></button>
-      <a class="link" href="mailto:jai.sushant@gmail.com">say hello</a>
+      <div class="actions">
+        <button class="link" data-about aria-expanded="false" aria-controls="about-drawer">more about me +</button>
+        <a class="link" href="mailto:jai.sushant@gmail.com">say hello</a>
+      </div>
     </div>
     </div>
 
