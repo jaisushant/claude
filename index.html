@@ -1354,9 +1354,9 @@ function imgGone(img){
   var A = {
     dashFull:  {u:"", ar:"1040/680", alt:"Business overview with an orders trend chart and grouped metrics"},
     dashPerf:  {u:"", ar:"1040/679", alt:"Product performance table flagging under-performing products"},
-    vid1:      {u:"", ar:"296/216", alt:"Merchant video review thumbnail"},
-    vid2:      {u:"", ar:"296/222", alt:"Merchant video review thumbnail"},
-    vid3:      {u:"", ar:"293/220", alt:"Merchant video review thumbnail"},
+    vid1:      {u:"", ar:"296/216", alt:"Merchant video review 1"},
+    vid2:      {u:"", ar:"296/222", alt:"Merchant video review 2"},
+    vid3:      {u:"", ar:"293/220", alt:"Merchant video review 3"},
     rewardsV1: {u:"", ar:"952/628", alt:"Rewards and benefits screen before the redesign"},
     implAfter: {u:"", ar:"952/649", alt:"Rewards and benefits screen after the redesign"},
     bbsEntry:  {u:"", ar:"245/420", crop:1, alt:"Bid based shopping entry screen"},
@@ -1412,7 +1412,7 @@ function imgGone(img){
         {t:"img", k:"dashPerf"}
       ]},
       {no:"08", nm:"video testimonials", ttl:"merchants liked it enough to post their own reviews.", b:[
-        {t:"shots", v:[{k:"vid1",play:1},{k:"vid2",play:1},{k:"vid3",play:1}]}
+        {t:"shots", v:[{k:"vid1",play:1,href:"https://youtu.be/vzYQjCN6yrc"},{k:"vid2",play:1,href:"https://youtu.be/pRxOHkeQeJo"},{k:"vid3",play:1,href:"https://youtu.be/_pJZQrATnj4"}]}
       ]}
     ]
   },
@@ -1512,8 +1512,9 @@ function imgGone(img){
     var st = a.crop ? ' style="aspect-ratio:'+a.ar+';object-fit:cover;object-position:top"' : '';
     var chain = a.u ? "this.onerror=null;this.src='"+a.u+"'" : "this.onerror=null;this.parentNode.innerHTML='<span class=\\'standin\\' style=\\'--ar:"+a.ar+"\\'>"+esc(a.alt).replace(/'/g,"") + "</span>'";
     var inner = '<img src="'+srcFor(key)+'" alt="'+esc(a.alt)+'" loading="lazy" decoding="async"'+st+' onerror="'+chain+'">';
-    var tag = 'button type="button" data-zoom="'+key+'"';
-    var end = '</button>';
+    // A video thumbnail opens the video on YouTube; every other image opens the zoom view.
+    var tag = o.href ? 'a href="'+esc(o.href)+'" target="_blank" rel="noopener" aria-label="Play merchant video review '+esc(key.replace("vid",""))+' on YouTube"' : 'button type="button" data-zoom="'+key+'"';
+    var end = o.href ? '</a>' : '</button>';
     var play = o.play ? '<span class="playdisc" aria-hidden="true"></span>' : '';
     return '<'+tag+' class="cs-img" style="aspect-ratio:'+a.ar+'">'+inner+play+end;
   }
@@ -1534,7 +1535,7 @@ function imgGone(img){
     if (b.t === "copy") return '<p class="cs-block b-m bodyc" style="max-width:660px">'+esc(b.v)+'</p>';
     if (b.t === "img") return '<figure class="cs-block cs-fig">'+imgHTML(b.k)+'</figure>';
     if (b.t === "shots") return '<div class="cs-block cs-shots'+(b.stack?' stack':'')+'">'+b.v.map(function(s){
-      return '<figure>'+(s.cap?'<figcaption class="cs-cap">'+esc(s.cap)+'</figcaption>':'')+imgHTML(s.k,{play:s.play})+'</figure>';
+      return '<figure>'+(s.cap?'<figcaption class="cs-cap">'+esc(s.cap)+'</figcaption>':'')+imgHTML(s.k,{play:s.play,href:s.href})+'</figure>';
     }).join("")+'</div>';
     if (b.t === "quote") return '<blockquote class="cs-block cs-quote"><p class="d-m" style="margin:0;max-width:700px">'+esc(b.v[0])+'</p><cite class="l-m muted" style="font-style:normal">'+esc(b.v[1])+'</cite></blockquote>';
     if (b.t === "flow") return '<div class="cs-block cs-flow">'+b.v.map(function(n,i){
