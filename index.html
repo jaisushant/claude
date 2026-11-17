@@ -141,6 +141,8 @@ button.link{text-align:left}
 .cover-link{flex:1;min-height:0;display:block}
 .card .cover{background:var(--panel);padding:18px 20px 26px;display:flex;flex-direction:column;gap:18px;align-items:center;position:relative;overflow:hidden;height:100%}
 .card .cover .shot{flex:1;min-height:0;width:auto;max-width:100%;aspect-ratio:var(--ar)}
+/* Single-screenshot covers: the box takes the image's own ratio, so nothing is trimmed */
+.card .cover > .shot{flex:none;width:100%;height:auto;max-height:none;margin-block:auto}
 .card .shots{flex:1;min-height:0}
 .card .shots .shot{height:100%;width:auto;aspect-ratio:var(--ar)}
 .card .cover-meta{display:flex;justify-content:space-between;width:100%;color:var(--on-ink)}
@@ -841,9 +843,9 @@ function imgGone(img){
             </div>
           </div>
           <div class="photos" style="display:flex;gap:16px">
-            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-mushrooms.webp" onerror="imgGone(this)" alt="Enoki mushrooms in chilli broth" loading="eager" decoding="async"></figure>
-            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-onigirazu.webp" onerror="imgGone(this)" alt="Hand holding a cut onigirazu over a plate" loading="eager" decoding="async"></figure>
-            <figure class="shot filled" style="--ar:3/4"><img src="images/onigiri-dumplings.webp" onerror="imgGone(this)" alt="Dumplings in broth in a pale green bowl" loading="eager" decoding="async"></figure>
+            <figure class="shot filled" style="--ar:3/4"><img src="images/dish-mushrooms.webp" onerror="imgGone(this)" alt="Enoki mushrooms in chilli broth" loading="eager" decoding="async"></figure>
+            <figure class="shot filled" style="--ar:3/4"><img src="images/dish-onigirazu.webp" onerror="imgGone(this)" alt="Hand holding a cut onigirazu over a plate" loading="eager" decoding="async"></figure>
+            <figure class="shot filled" style="--ar:3/4"><img src="images/dish-dumplings.webp" onerror="imgGone(this)" alt="Dumplings in broth in a pale green bowl" loading="eager" decoding="async"></figure>
           </div>
         </section>
 
@@ -1116,7 +1118,9 @@ function imgGone(img){
       }
     });
     focusUnits.forEach(function(u){ u.classList.add("focus-unit"); });
-    shotsBySec = focusUnits.map(function(el){ return $$(".shot", el); });
+    // Card covers frame a whole screenshot inside a clipping panel, so they don't drift:
+    // sliding them sideways cut the edges of the design off.
+    shotsBySec = focusUnits.map(function(el){ return $$(".shot", el).filter(function(s){ return !s.closest(".cover"); }); });
     if (!$(".needle")){ var nd = document.createElement("span"); nd.className = "needle"; segsEl.appendChild(nd); }
     if (railIO) railIO.disconnect();
     if (root.classList.contains("layout-mobile")){
